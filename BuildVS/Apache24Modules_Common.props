@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	<PropertyGroup Label="UserMacros">
+		<httpdRoot>$(SolutionDir)../../DWS-httpd</httpdRoot>
+		<aproot>$(httpdRoot)</aproot>
+	</PropertyGroup>
+
+	<!-- $(PlatformID) macro -->
+	<PropertyGroup Label="UserMacros">
+		<PlatformID>unknown</PlatformID>
+	</PropertyGroup>
+
+	<PropertyGroup Label="UserMacros" Condition="('$(Platform)'=='Win32')">
+		<PlatformID>x86</PlatformID>
+	</PropertyGroup>
+	<PropertyGroup Label="UserMacros" Condition="('$(Platform)'=='x64')">
+		<PlatformID>x64</PlatformID>
+	</PropertyGroup>
+	<PropertyGroup Label="UserMacros" Condition="('$(Platform)'=='Itanium')">
+		<PlatformID>ia64</PlatformID>
+	</PropertyGroup>
+	<PropertyGroup Label="UserMacros" Condition="('$(Platform)'=='ARM')">
+		<PlatformID>a32</PlatformID>
+	</PropertyGroup>
+	<PropertyGroup Label="UserMacros" Condition="('$(Platform)'=='ARM64')">
+		<PlatformID>a64</PlatformID>
+	</PropertyGroup>
+	<PropertyGroup Label="UserMacros" Condition="('$(Platform)'=='ARM64EC')">
+		<PlatformID>a64ec</PlatformID>
+	</PropertyGroup>
+
+	<Import Project="$(httpdRoot)\BuildVS\PathEnv.props" />
+
+	<PropertyGroup>
+		<IntDir>$(SolutionDir)\TEMP\$(Configuration)_$(PlatformID)\$(MSBuildProjectName)\</IntDir>
+		<OutDir>$(SolutionDir)\$(Configuration)_$(PlatformID)\</OutDir>
+		<CharacterSet>MultiByte</CharacterSet>
+		<GenerateManifest>false</GenerateManifest>
+		<UseDebugLibraries>false</UseDebugLibraries>
+		<LinkIncremental>false</LinkIncremental>
+		<PlatformToolset>v100</PlatformToolset>
+		<TrackFileAccess>false</TrackFileAccess>
+
+		<ConfigurationType>DynamicLibrary</ConfigurationType>
+	</PropertyGroup>
+
+	<ItemDefinitionGroup>
+		<ClCompile>
+			<AdditionalIncludeDirectories>$(httpdRoot)/include;$(httpdRoot)/os/win32;$(httpdRoot)/modules/filters;$(libapr)/include;$(libapr-util)/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+			<PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<WarningLevel>Level3</WarningLevel>
+			<BufferSecurityCheck>false</BufferSecurityCheck>
+			<MultiProcessorCompilation>true</MultiProcessorCompilation>
+			<Optimization>MaxSpeed</Optimization>
+			<FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+			<InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+			<IntrinsicFunctions>true</IntrinsicFunctions>
+			<RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+			<DisableSpecificWarnings>%(DisableSpecificWarnings)</DisableSpecificWarnings>
+		</ClCompile>
+		<Link>
+			<AdditionalDependencies>
+				$(SolutionDir)\DWS.res;
+				$(httpdRoot)\BuildVS\$(Configuration)_$(PlatformID)\libhttpd.lib;
+				$(httpdRoot)\BuildVS\$(Configuration)_$(PlatformID)\libapr-1.lib;
+				$(httpdRoot)\BuildVS\$(Configuration)_$(PlatformID)\libapriconv-1.lib;
+				$(httpdRoot)\BuildVS\$(Configuration)_$(PlatformID)\libaprutil-1.lib;
+				%(AdditionalDependencies)
+			</AdditionalDependencies>
+			<GenerateDebugInformation>false</GenerateDebugInformation>
+			<LargeAddressAware>true</LargeAddressAware>
+			<SetChecksum>false</SetChecksum>
+			<RandomizedBaseAddress>true</RandomizedBaseAddress>
+			<FixedBaseAddress>false</FixedBaseAddress>
+
+			<ModuleDefinitionFile>$(SolutionDir)..\$(MSBuildProjectName)\$(MSBuildProjectName).def</ModuleDefinitionFile>
+		</Link>
+	</ItemDefinitionGroup>
+
+
+	<PropertyGroup Condition="'$(MSBuildAssemblyVersion)'=='4.0'">
+		<PlatformToolset>v100</PlatformToolset>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(MSBuildAssemblyVersion)'=='17.0'">
+		<PlatformToolset>v143</PlatformToolset>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(PlatformID)'=='a64ec'">
+		<BuildAsX>true</BuildAsX>
+	</PropertyGroup>
+
+	<ItemDefinitionGroup Condition="('$(PlatformID)'=='x86')">
+		<ClCompile>
+			<EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+		</ClCompile>
+	</ItemDefinitionGroup>
+
+	<ItemDefinitionGroup Condition="('$(ConfigurationType)'=='Application')">
+		<Link>
+			<TerminalServerAware>true</TerminalServerAware>
+		</Link>
+	</ItemDefinitionGroup>
+
+</Project>

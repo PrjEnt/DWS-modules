@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="Apache24Modules_Common.props" />
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Release|Itanium">
+      <Configuration>Release</Configuration>
+      <Platform>Itanium</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ItemGroup>
+    <ClInclude Include="..\Include\Apache24Modules.h" />
+    <ClInclude Include="..\mod_x_cgi\mod_x_cgi.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\mod_x_cgi\mod_x_cgi.cpp" />
+    <ClCompile Include="..\mod_x_cgi\mod_x_cgi_Services_BuildEnvBlock.cpp" />
+    <ClCompile Include="..\mod_x_cgi\mod_x_cgi_Services_CreateCGIProcess.cpp" />
+    <ClCompile Include="..\mod_x_cgi\mod_x_cgi_Services_OutputHeaders.cpp" />
+    <ClCompile Include="..\mod_x_cgi\mod_x_cgi_Services_PassContentsToClient.cpp" />
+    <ClCompile Include="..\mod_x_cgi\mod_x_cgi_Services_PassPOSTToScript.cpp" />
+    <ClCompile Include="..\mod_x_cgi\mod_x_cgi_Services_PrepareProcess.cpp" />
+    <ClCompile Include="..\mod_x_cgi\mod_x_cgi_Utility.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\mod_x_cgi\mod_x_cgi.def" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+</Project>

@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="Apache24Modules_Common.props" />
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Release|Itanium">
+      <Configuration>Release</Configuration>
+      <Platform>Itanium</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ItemGroup>
+    <ClInclude Include="..\Include\Apache24Modules.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\mod_x_winuri\mod_x_winuri.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\mod_x_winuri\mod_x_winuri.def" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+</Project>

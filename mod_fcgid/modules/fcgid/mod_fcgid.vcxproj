@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(SolutionDir)\Apache24Modules_Common.props" />
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Release|Itanium">
+      <Configuration>Release</Configuration>
+      <Platform>Itanium</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <SccProjectName />
+    <SccLocalPath />
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.Cpp.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <OutDir>$(SolutionDir)\..\</OutDir>
+    <IntDir>.\Release\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <StringPooling>true</StringPooling>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <WarningLevel>Level3</WarningLevel>
+      <OmitFramePointers>false</OmitFramePointers>
+      <PreprocessorDefinitions>NDEBUG;WIN32;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AssemblerListingLocation>.\Release\</AssemblerListingLocation>
+      <PrecompiledHeaderOutputFile>.\Release\mod_fcgid.pch</PrecompiledHeaderOutputFile>
+      <ObjectFileName>.\Release\</ObjectFileName>
+      <ProgramDataBaseFileName>Release\mod_fcgid_src</ProgramDataBaseFileName>
+      <AdditionalIncludeDirectories>$(httpdRoot)\modules\generators;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <PostBuildEvent>
+      <Command>if exist $(TargetPath).manifest mt.exe -manifest $(TargetPath).manifest -outputresource:$(TargetPath)%3b2</Command>
+      <Message>Embed .manifest</Message>
+    </PostBuildEvent>
+    <Midl>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <TypeLibraryName>.\Release\mod_fcgid.tlb</TypeLibraryName>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <TargetEnvironment>Win32</TargetEnvironment>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0409</Culture>
+      <AdditionalIncludeDirectories>../../srclib/apr/include;$(APACHE2_HOME)/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\Release\mod_fcgid.bsc</OutputFile>
+    </Bscmake>
+    <Link>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <LinkDLL>true</LinkDLL>
+      <SubSystem>Windows</SubSystem>
+      <OutputFile>$(SolutionDir)\..\$(TargetName)$(TargetExt)</OutputFile>
+      <ImportLibrary>.\Release\mod_fcgid.lib</ImportLibrary>
+      <AdditionalLibraryDirectories>..\..\Release;..\..\srclib\apr\Release;..\..\srclib\apr-util\Release;$(APACHE2_HOME)/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <BaseAddress>0x46430000</BaseAddress>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <OptimizeReferences>true</OptimizeReferences>
+      <ModuleDefinitionFile>
+      </ModuleDefinitionFile>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="fcgid_bridge.c" />
+    <ClCompile Include="fcgid_bucket.c" />
+    <ClCompile Include="fcgid_conf.c" />
+    <ClCompile Include="fcgid_filter.c" />
+    <ClCompile Include="fcgid_pm_main.c" />
+    <ClCompile Include="fcgid_pm_win.c" />
+    <ClCompile Include="fcgid_proc_win.c" />
+    <ClCompile Include="fcgid_proctbl_win.c" />
+    <ClCompile Include="fcgid_protocol.c" />
+    <ClCompile Include="fcgid_spawn_ctl.c" />
+    <ClCompile Include="mod_fcgid.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="fcgid_bridge.h" />
+    <ClInclude Include="fcgid_bucket.h" />
+    <ClInclude Include="fcgid_conf.h" />
+    <ClInclude Include="fcgid_filter.h" />
+    <ClInclude Include="fcgid_global.h" />
+    <ClInclude Include="fcgid_pm.h" />
+    <ClInclude Include="fcgid_pm_main.h" />
+    <ClInclude Include="fcgid_proc.h" />
+    <ClInclude Include="fcgid_proctbl.h" />
+    <ClInclude Include="fcgid_spawn_ctl.h" />
+    <ClInclude Include="fcgid_config.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="fcgid_config.h.in">
+      <FileType>Document</FileType>
+      <Command>echo /* No configuration */ &gt; .\fcgid_config.h</Command>
+      <Message>Generating fcgid_config.h</Message>
+      <Outputs>.\fcgid_config.h;%(Outputs)</Outputs>
+    </CustomBuild>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

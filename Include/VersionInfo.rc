@@ -1,0 +1,33 @@
+
+1 VERSIONINFO
+FILEVERSION 0,0,0,0
+PRODUCTVERSION 0,0,0,0
+FILEOS 0x4
+FILETYPE 0x1
+{
+BLOCK "StringFileInfo"
+{
+	BLOCK "040904E4"
+	{
+		VALUE "Comments", "XModules"
+		VALUE "CompanyName", "Dark Network Systems"
+		VALUE "FileDescription", "XModules"
+		VALUE "FileVersion", "0.0.0.0"
+		VALUE "InternalName", "XModules"
+		VALUE "LegalCopyright", "(C)2015- Dark Network Systems All Rights Reserved."
+		VALUE "OriginalFilename", "XModules.dll"
+		VALUE "ProductName", "XModules"
+		VALUE "ProductVersion", "0.0.0.0"
+		VALUE "LegalTrademarks", ""
+		VALUE "PrivateBuild", ""
+		VALUE "SpecialBuild", ""
+		VALUE "Dark", "XModules"
+		VALUE "Web site", "http://n.dark-x.net/"
+	}
+}
+
+BLOCK "VarFileInfo"
+{
+	VALUE "Translation", 0x0409 0x04B0  
+}
+}
